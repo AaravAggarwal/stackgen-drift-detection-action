@@ -1,7 +1,12 @@
 name: Drift Detection
 
 on:
+  # Manual trigger
   workflow_dispatch:
+
+  # Scheduled run every day at 6 AM UTC
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   drift:
