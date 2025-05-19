@@ -1,0 +1,16 @@
+name: Drift Detection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger StackGen Drift Detection
+        uses: AaravAggarwal/stackgen-drift-detection-action@main
+        env:
+          STACKGEN_API_KEY: ${{ secrets.STACKGEN_API_KEY }}
+        with:
+          appstack_id: 'abc123'
+          region: 'us-east-1'
