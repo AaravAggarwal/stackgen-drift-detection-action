@@ -10,7 +10,7 @@ jobs:
       - name: Trigger StackGen Drift Detection
         uses: AaravAggarwal/stackgen-drift-detection-action@main
         env:
-          STACKGEN_API_KEY: ${{ secrets.STACKGEN_API_KEY }}
+          STACKGEN_TOKEN: ${{ secrets.STACKGEN_TOKEN }}
         with:
-          appstack_id: 'abc123'
+          appstack_id: 'app-stack-12345'
           region: 'us-east-1'
