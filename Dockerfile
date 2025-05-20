@@ -16,4 +16,6 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 
 RUN brew install stackgenhq/stackgen/stackgen
 
+USER root
+
 ENTRYPOINT ["stackgen"]
