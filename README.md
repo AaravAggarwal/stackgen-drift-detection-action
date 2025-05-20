@@ -44,15 +44,24 @@ jobs:
 
     - name: Create temporary directory
         run: mkdir -p tmp
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-     - name: Trigger StackGen Drift Detection
-        uses: AaravAggarwal/stackgen-drift-detection-action@main
-        env:
-          STACKGEN_TOKEN: ${{ secrets.STACKGEN_TOKEN }}
-          TMPDIR: ${{ github.workspace }}/tmp
-          # add any cloud provider creds your appStack needs (ex:
-          #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
-          #AWS_SECRET_ACCESS_KEY_ID: ${{ secrets.AWS_SECRETS_ACCESS_KEY_ID}}
-        with:
-          appstack_id: 'your-appstack-id-here' # this is found in the URL of your appStack after /appstacks/
-          region: 'your-region-here'  # e.g. us-east-1
+    - name: Create temporary directory
+      run: mkdir -p tmp
+
+    - name: Trigger StackGen Drift Detection
+      uses: AaravAggarwal/stackgen-drift-detection-action@main
+      env:
+        STACKGEN_TOKEN: ${{ secrets.STACKGEN_TOKEN }}
+        TMPDIR: ${{ github.workspace }}/tmp
+        # add any cloud provider creds your appStack needs (ex:
+        #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
+        #AWS_SECRET_ACCESS_KEY_ID: ${{ secrets.AWS_SECRETS_ACCESS_KEY_ID}}
+      with:
+        appstack_id: 'your-appstack-id-here' # this is found in the URL of your appStack after /appstacks/
+        region: 'your-region-here'  # e.g. us-east-1
