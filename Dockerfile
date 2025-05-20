@@ -14,7 +14,9 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 
-RUN brew install stackgenhq/stackgen/stackgen opentofu
+RUN brew install stackgenhq/stackgen/stackgen
+
+RUN brew install opentofu/tap/opentofu
 
 USER root
 

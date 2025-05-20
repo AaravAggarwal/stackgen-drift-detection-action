@@ -7,8 +7,10 @@ This GitHub Action triggers StackGen's drift detection through the StackGen CLI.
 Please follow the steps below to setup the action:
 
 1. Signup for an account on [StackGen](https://cloud.stackgen.com/)
-2. Setup a **Personal Access Token** on [StackGen](https://cloud.stackgen.com/account-settings/pat/)
-3. Add that token as a secret in your repository with the name: `STACKGEN_TOKEN`
+2. Make an appStack and note the appStack id (part of the URL after /appstacks/)
+3. Setup a **Personal Access Token** on [StackGen](https://cloud.stackgen.com/account-settings/pat/)
+4. Add the PAT as a GitHub secret: `STACKGEN_TOKEN`
+5. Add any other necessary cloud provider credentials your appStack requires
 
 
 ## 🔧 Inputs
@@ -19,6 +21,8 @@ Please follow the steps below to setup the action:
 | `region`       | Region for the appStack (e.g. us-east-1) | ✅ Yes   |
 
 ## 🚀 Usage
+
+Create a new workflow under `.github/workflows/` in your project
 
 ```yaml
 name: Drift Detection
@@ -35,11 +39,20 @@ jobs:
   drift:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger StackGen Drift Detection
+    - name: Checkout repo
+        uses: actions/checkout@v3
+
+    - name: Create temporary directory
+        run: mkdir -p tmp
+
+     - name: Trigger StackGen Drift Detection
         uses: AaravAggarwal/stackgen-drift-detection-action@main
         env:
           STACKGEN_TOKEN: ${{ secrets.STACKGEN_TOKEN }}
+          TMPDIR: ${{ github.workspace }}/tmp
+          # add any cloud provider creds your appStack needs (ex:
+          #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          #AWS_SECRET_ACCESS_KEY_ID: ${{ secrets.AWS_SECRETS_ACCESS_KEY_ID}}
         with:
-          appstack_id: 'app-stack-12345'
-          region: 'us-east-1'
-
+          appstack_id: 'your-appstack-id-here' # this is found in the URL of your appStack after /appstacks/
+          region: 'your-region-here'  # e.g. us-east-1
